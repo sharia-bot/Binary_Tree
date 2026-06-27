@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int result;
+
+    int dfs(TreeNode* root){
+        if(root==NULL) return 0;
+
+        int l = dfs(root->left);
+        int r = dfs(root->right);
+
+        int down_path = root->val + l + r;
+
+        int only_root = root->val;
+        int either_one = root->val + max(l,r);
+
+        result = max({down_path,only_root,either_one,result});
+
+        return max(only_root,either_one);
+    }
+    int maxPathSum(TreeNode* root) {
+        result = INT_MIN;
+
+        dfs(root);
+
+        return result;
+    }
+};
