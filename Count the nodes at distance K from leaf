@@ -1,0 +1,29 @@
+class Solution {
+  public:
+   
+    void solve(Node* root, unordered_set<Node*>&result,vector<Node*>temp,int k){
+        if(!root){
+            return;
+        }
+        
+        temp.push_back(root);
+        if(!root->left && !root->right){
+               if(temp.size()>k){
+                result.insert(temp[temp.size()-k-1]);
+            }
+        }
+        solve(root->left,result,temp,k);
+        solve(root->right,result,temp,k);
+        
+        temp.pop_back();
+    }
+    int kthFromLeaf(Node* root, int k) {
+        // code here.
+        vector<Node*>temp;
+        unordered_set<Node*>result;
+        
+        solve(root,result,temp,k);
+        
+    return result.size();    
+    }
+};
